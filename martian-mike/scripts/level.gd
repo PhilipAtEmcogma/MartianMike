@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var start_position = $StartPosition
+@onready var player = $Player
 
 func _process(delta):
 	if Input.is_action_just_pressed("quit"):
@@ -10,5 +11,12 @@ func _process(delta):
 
 
 func _on_deathzone_body_entered(body: Node2D) -> void:
-	body.velocity = Vector2.ZERO #reset player velocity
-	body.global_position = start_position.global_position #reset player global position to start position
+	reset_player()
+
+
+func _on_trap_touched_player() -> void:
+	reset_player()
+	
+func reset_player():
+	player.velocity = Vector2.ZERO #reset player velocity
+	player.global_position = start_position.global_position #reset player global position to start position
