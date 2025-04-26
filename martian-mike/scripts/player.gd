@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Player
 
 @export var gravity = 400
 @export var speed = 125
@@ -14,7 +15,7 @@ func _physics_process(delta: float) -> void:
 	
 	#go to Prpject > Project Setting > Input map to create new input mapping.
 	if Input.is_action_just_pressed("jump") && is_on_floor():
-		velocity.y = -jump_force
+		jump(jump_force)
 		
 	#returns -1 if first argument (move_left) is met, returns 1 if second argument (move_right) is met, returns 0 if neither or both is met
 	var direction = Input.get_axis("move_left", "move_right")
@@ -25,6 +26,9 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 	update_animations(direction)
+	
+func jump(force):
+	velocity.y = -force
 	
 func update_animations(direction):
 	if is_on_floor():
