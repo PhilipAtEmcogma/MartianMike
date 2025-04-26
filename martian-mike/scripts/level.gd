@@ -3,6 +3,15 @@ extends Node2D
 @onready var start_position = $StartPosition
 @onready var player = $Player
 
+func _ready():
+	#a groupd is like a tag that you can give to objects and group them together.
+	var traps = get_tree().get_nodes_in_group("traps") #returns an array
+	for trap in traps:
+		#2 ways to connect signals via code:
+		#trap.connect("touched_player",  _on_trap_touched_player)
+		trap.touch_player.connect(_on_trap_touched_player)
+	
+
 func _process(delta):
 	if Input.is_action_just_pressed("quit"):
 		get_tree().quit()
