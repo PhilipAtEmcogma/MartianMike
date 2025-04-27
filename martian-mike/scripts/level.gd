@@ -9,7 +9,7 @@ func _ready():
 	for trap in traps:
 		#2 ways to connect signals via code:
 		#trap.connect("touched_player",  _on_trap_touched_player)
-		trap.touch_player.connect(_on_trap_touched_player)
+		trap.touched_player.connect(_on_trap_touched_player)
 	
 
 func _process(delta):
