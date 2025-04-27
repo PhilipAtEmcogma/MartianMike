@@ -1,9 +1,11 @@
 [gd_scene load_steps=13 format=3 uid="uid://jpkh0hwi88yb"]
 
 [ext_resource type="Script" uid="uid://b8jwuaiucneof" path="res://scripts/level.gd" id="1_2q6dc"]
+[ext_resource type="PackedScene" uid="uid://bjucflc6mlc6a" path="res://scenes/level_2.tscn" id="2_t1rx8"]
 [ext_resource type="PackedScene" uid="uid://hy3xcvi4a72w" path="res://scenes/player.tscn" id="2_w7c3h"]
-[ext_resource type="Texture2D" uid="uid://clk1oeu68fuey" path="res://icon.svg" id="3_w8frs"]
+[ext_resource type="Texture2D" uid="uid://dhyylwnxexgwv" path="res://assets/textures/bg/Yellow.png" id="4_8iemx"]
 [ext_resource type="PackedScene" uid="uid://ct3vm6ecg0dt8" path="res://scenes/jump_pad.tscn" id="4_mx8sn"]
+[ext_resource type="PackedScene" uid="uid://ds2425kf21eot" path="res://scenes/deathzone.tscn" id="4_t1rx8"]
 [ext_resource type="PackedScene" uid="uid://bdgebhumu8xis" path="res://scenes/saw.tscn" id="5_ppgk2"]
 [ext_resource type="PackedScene" uid="uid://d1tqajik8qrx0" path="res://scenes/spike_ball.tscn" id="6_2r41h"]
 [ext_resource type="PackedScene" uid="uid://g822vt54jns6" path="res://scenes/tile_map.tscn" id="7_klq6b"]
@@ -11,35 +13,15 @@
 [ext_resource type="PackedScene" uid="uid://mnl21gfnqvi5" path="res://scenes/start.tscn" id="9_8c41q"]
 [ext_resource type="PackedScene" uid="uid://dwo1an08ha3yt" path="res://scenes/exit.tscn" id="9_olg7q"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mx8sn"]
-size = Vector2(688, 20)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_w8frs"]
-size = Vector2(3282, 20)
-
 [node name="Level" type="Node2D"]
 script = ExtResource("1_2q6dc")
+next_level = ExtResource("2_t1rx8")
 
 [node name="BG" parent="." instance=ExtResource("8_b121j")]
+bg_texture = ExtResource("4_8iemx")
 
-[node name="Ground" type="StaticBody2D" parent="."]
-position = Vector2(-121, -166)
-
-[node name="Sprite2D" type="Sprite2D" parent="Ground"]
-modulate = Color(0, 0, 0, 1)
-scale = Vector2(5.375, 0.15625)
-texture = ExtResource("3_w8frs")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
-shape = SubResource("RectangleShape2D_mx8sn")
-
-[node name="Deathzone" type="Area2D" parent="."]
+[node name="Deathzone" parent="." instance=ExtResource("4_t1rx8")]
 position = Vector2(0, 315)
-collision_layer = 4
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Deathzone"]
-shape = SubResource("RectangleShape2D_w8frs")
 
 [node name="Objects" type="Node2D" parent="."]
 
@@ -80,5 +62,3 @@ position = Vector2(307, 49)
 
 [node name="Player" parent="." instance=ExtResource("2_w7c3h")]
 position = Vector2(237, 115)
-
-[connection signal="body_entered" from="Deathzone" to="." method="_on_deathzone_body_entered"]

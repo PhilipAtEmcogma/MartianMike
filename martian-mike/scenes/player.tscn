@@ -215,4 +215,3 @@ position = Vector2(0, -11)
 shape = SubResource("RectangleShape2D_gl8cc")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-limit_bottom = 175
