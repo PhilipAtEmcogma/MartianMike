@@ -1,9 +1,15 @@
 extends Node2D
 
-@onready var start_position = $StartPosition
-@onready var player = $Player
+@onready var start = $Start
+var player = null
 
 func _ready():
+	player = get_tree().get_first_node_in_group("player")#returns a single node
+	
+	if player != null:
+		player.global_position = start.get_spawn_pos()
+		
+	player.global_position = start.get_spawn_pos() #reset player global position to start position
 	#a groupd is like a tag that you can give to objects and group them together.
 	var traps = get_tree().get_nodes_in_group("traps") #returns an array
 	for trap in traps:
@@ -28,4 +34,4 @@ func _on_trap_touched_player() -> void:
 	
 func reset_player():
 	player.velocity = Vector2.ZERO #reset player velocity
-	player.global_position = start_position.global_position #reset player global position to start position
+	player.global_position = start.get_spawn_pos() #reset player global position to start position
