@@ -1,12 +1,14 @@
 extends Node2D
 
 @export var next_level: PackedScene = null
+@export var is_final_level:bool = false
 
 @onready var start = $Start
 @onready var exit = $Exit
 @onready var death_zone = $Deathzone
 
 @onready var hud = $UILayer/HUD
+@onready var ui_layer = $UILayer
 
 var player = null
 
@@ -76,11 +78,14 @@ func reset_player():
 func _on_exit_body_entered(body):
 	if body is Player:
 		#only switch to next level, if next level is loaded successfully.
-		if next_level != null:
+		if is_final_level || (next_level != null):
 			#load next level, after playing animation
 			exit.animate()
 			player.active = false
 			win = true
 			await get_tree().create_timer(1.5).timeout #timeout for 1.5 sec before change scene, so animation can play
-			#packed is packed scene is Godot way to store scene files.
-			get_tree().change_scene_to_packed(next_level)
+			if is_final_level:
+				ui_layer.show_win_screen(true)
+			else:
+				#packed is packed scene is Godot way to store scene files.
+				get_tree().change_scene_to_packed(next_level)
