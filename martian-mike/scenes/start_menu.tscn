@@ -77,5 +77,17 @@ theme_override_font_sizes/font_size = 10
 text = "QUIT
 "
 
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 323.0
+offset_top = 129.0
+offset_right = 473.0
+offset_bottom = 204.0
+text = "A - move Left
+D - move Right
+Spacebar - Jump"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="QuitButton" to="." method="_on_quit_button_pressed"]
